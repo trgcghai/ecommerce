@@ -1,10 +1,9 @@
 import "./App.css";
-import { Counter } from "./features/counter/Counter";
 
 export default function App() {
   return (
     <>
-      <Counter />
+      <h2>hello world</h2>
     </>
   );
 }
