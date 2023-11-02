@@ -1,9 +1,10 @@
 import "./App.css";
+import Main from "./Components/Main/Main";
 
 export default function App() {
   return (
     <>
-      <h2>hello world</h2>
+      <Main />
     </>
   );
 }
