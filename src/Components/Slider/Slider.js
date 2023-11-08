@@ -4,7 +4,7 @@ import {
   prevSlice,
   dotSlice,
 } from "../../features/slices/sliderSlice";
-import { UseSelector, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sliderData } from "../../assets/data/dummyData";
 
 const Slider = () => {
