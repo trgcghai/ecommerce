@@ -1,10 +1,24 @@
 import "./App.css";
+import FilterProduction from "./Components/FilterProduction/FilterProduction";
 import Main from "./Components/Main/Main";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
-    <>
-      <Main />
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main></Main>}>
+            {" "}
+          </Route>
+          <Route
+            path="/filterProducts/:type"
+            element={<FilterProduction></FilterProduction>}
+          >
+            {" "}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
