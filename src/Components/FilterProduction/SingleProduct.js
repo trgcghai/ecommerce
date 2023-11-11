@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useParams } from "react-router";
 import { Button } from "@material-tailwind/react";
+import { addToCart } from "../../features/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 const SingleProduct = () => {
   const product = useSelector((state) => state.products.singleProduct);
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const productSize = product[0].size ? product[0].size[0] : "";
   const productColor = product[0].color ? product[0].color[0] : "";
   const [size, setSize] = useState(productSize);
   const [color, setColor] = useState(productColor);
 
-  console.log(size, color);
   return (
     <div>
       {product &&
@@ -97,6 +99,21 @@ const SingleProduct = () => {
                         size="lg"
                         variant="outlined"
                         ripple={true}
+                        onClick={() =>
+                          dispatch(
+                            addToCart({
+                              id: item.id,
+                              price: item.price,
+                              img: item.img,
+                              text: item.text,
+                              amount: 1,
+                              totalPrice: item.price,
+                              name: item.name,
+                              size: size,
+                              color: color,
+                            })
+                          )
+                        }
                       >
                         Add to cart
                       </Button>
