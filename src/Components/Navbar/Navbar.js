@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import Cart from "../Cart/Cart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Avatar, Tooltip } from "@material-tailwind/react";
+import { logout } from "../../features/slices/authSlices";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const { totalAmount } = useSelector((state) => state.cart);
+  const { email, image } = useSelector((state) => state.user.user);
 
   const [open, setOpen] = useState(false);
 
@@ -24,9 +28,6 @@ const Navbar = () => {
           <img className="h-28 w-full" src={logo} alt="store" />
         </div>
         <div className="flex flex-row items-center">
-          <button className="font-inter text-base font-medium tracking-normal leading-none text-center mr-4">
-            Logout
-          </button>
           <div className="flex flex-row items-center cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +77,40 @@ const Navbar = () => {
             </p>
           </div>
           <div>{open && <Cart openModal={open} setOpen={setOpen}></Cart>}</div>
+          <Tooltip content="Logout" placement="bottom">
+            <div
+              className="flex flex-row items-center cursor-pointer"
+              onClick={() => dispatch(logout())}
+            >
+              <div className="flex flex-row items-center cursor-pointer mr-2">
+                {image ? (
+                  <Avatar alt="avatar" src={image} size="sm"></Avatar>
+                ) : (
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div>
+                <p className="font-inter text-base font-md tracking-normal leading-none">
+                  Hi {email}
+                </p>
+              </div>
+            </div>
+          </Tooltip>
         </div>
       </div>
       <div className="bg-black p-4 w-full flex justify-around">

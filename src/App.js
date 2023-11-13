@@ -3,22 +3,26 @@ import FilterProduction from "./Components/FilterProduction/FilterProduction";
 import SingleProduct from "./Components/FilterProduction/SingleProduct";
 import Main from "./Components/Main/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import Login from "./Components/Login/Login";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  const cartList = useSelector((state) => state.cart.cartList);
-  const totalAmount = useSelector((state) => state.cart.totalAmount);
-  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const user = useSelector((state) => state.user.user);
+  const { authUser } = user;
 
-  console.log("cart list", cartList);
-  console.log("total amount", totalAmount);
-  console.log("total price", totalPrice);
+  if (authUser) {
+    console.log("redirect to main page");
+  }
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main></Main>}></Route>
+          <Route
+            path="/"
+            element={authUser ? <Main></Main> : <Login></Login>}
+          ></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
           <Route
             path="/filterProducts/:type"
             element={<FilterProduction></FilterProduction>}
